@@ -12,7 +12,7 @@ from Crypto.Cipher import AES
 import ddddocr
 import requests
 from lxml import etree
-server = os.environ['server']
+server = os.environ['SERVER']
 def sendToWechat(param):
     i = 0
     while i < 3:
