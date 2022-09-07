@@ -17,6 +17,7 @@ jobs:
       JZDXXDZ: ${{secrets.JZDXXDZ}}
       LONGITUDE: ${{secrets.LONGITUDE}}
       LATITUDE: ${{secrets.LATITUDE}}
+      SERVER: ${{secrets.SERVER}}
     steps:
       - name: Check out code
         uses: actions/checkout@v3
