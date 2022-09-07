@@ -21,8 +21,8 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
       - name: Export Env
-        if: ${{secrets.NOTIFICATIONTYPES}} != ""
         run: |
+          ${{secrets.NOTIFICATIONTYPES}} $$ echo ${{secrets.NOTIFICATIONTYPES}} >> $GITHUB_ENV
           ${{secrets.PUSHPLUSTOKEN}} && echo ${{secrets.PUSHPLUSTOKEN}} >> $GITHUB_ENV
           ${{secrets.PUSHPLUSTOPIC}} && echo ${{secrets.PUSHPLUSTOPIC}} >> $GITHUB_ENV
           ${{secrets.TELEGRAMBOTTOKEN}} && echo ${{secrets.TELEGRAMBOTTOKEN}} >> $GITHUB_ENV
