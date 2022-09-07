@@ -12,7 +12,16 @@ from Crypto.Cipher import AES
 import ddddocr
 import requests
 from lxml import etree
-
+server = os.environ['server']
+def sendToWechat(param):
+    i = 0
+    while i < 3:
+        try:
+            r = requests.post(f'https://sctapi.ftqq.com/{server}.send', data=param, timeout=5)
+            return
+        except requests.exceptions.RequestException as e:
+            i += 1
+            print(e.response)
 '''  ##########！！！配置信息！！！(务必修改)########## '''
 USERNAME = ""  # 本地打卡更改or后面就行
 PASSWORD = ""  # 本地打卡更改or后面就行
@@ -332,6 +341,11 @@ def get_today_info(session: requests.Session):
     if today_data["SFDK"] == "否":
         return 0, today_data
     elif today_data["SFDK"] == "是":
+        param_server = {
+            'title': '打卡结果',
+            'desp': '今日已打卡'
+        }
+        sendToWechat(param_server)
         return 1, today_data
     print("获取今日打卡信息失败，未知错误，http错误code:{}, 错误信息：{}".format(res.status_code, res.text))
     return -1, ""
@@ -419,6 +433,12 @@ def do_checkin(session: requests.Session, address, _today_data):
     if res.status_code != 200:
         print("打卡失败，http错误code:{}, 错误信息：{}".format(res.status_code, res.text))
         return -1
+    else:
+        param_server = {
+            'title': '打卡结果',
+            'desp': '已成功打卡'
+        }
+        sendToWechat(param_server)
     return 0
 
 
